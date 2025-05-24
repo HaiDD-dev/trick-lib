@@ -40,10 +40,18 @@ public class CategoryServlet extends HttpServlet {
             case "delete":
                 deleteCategory(request, response);
                 break;
+            case "view":
+                viewTricksByCategory(request, response);
+                break;
             default:
                 listCategories(request, response);
                 break;
         }
+    }
+
+    private void viewTricksByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int categoryId = Integer.parseInt(request.getParameter("id"));
+        response.sendRedirect(request.getContextPath() + "/video-tricks?action=by-category&categoryId=" + categoryId);
     }
 
     @Override

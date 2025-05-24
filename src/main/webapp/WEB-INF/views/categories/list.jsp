@@ -55,135 +55,142 @@
     </div>
 </section>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <!-- Success/Error Messages -->
-            <c:if test="${not empty message}">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle me-2"></i>${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            </c:if>
+<div class="body-content">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <!-- Success/Error Messages -->
+                <c:if test="${not empty message}">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </c:if>
 
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>${error}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            </c:if>
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>${error}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </c:if>
 
-            <!-- Categories Table -->
-            <div class="card feature-card">
-                <div class="card-header bg-light border-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-list-alt text-primary me-2"></i>Category List
-                        </h5>
-                        <span class="badge bg-primary fs-6">${categories.size()} categories</span>
+                <!-- Categories Table -->
+                <div class="card feature-card">
+                    <div class="card-header bg-light border-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-list-alt text-primary me-2"></i>Category List
+                            </h5>
+                            <span class="badge bg-primary fs-6">${categories.size()} categories</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <c:choose>
+                            <c:when test="${not empty categories}">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-dark">
+                                        <tr>
+                                            <th width="10%">
+                                                <i class="fas fa-hashtag me-1"></i>ID
+                                            </th>
+                                            <th width="25%">
+                                                <i class="fas fa-tag me-1"></i>Category Name
+                                            </th>
+                                            <th width="45%">
+                                                <i class="fas fa-align-left me-1"></i>Description
+                                            </th>
+                                            <th width="20%" class="text-center">
+                                                <i class="fas fa-cogs me-1"></i>Actions
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach var="category" items="${categories}" varStatus="status">
+                                            <tr>
+                                                <td class="fw-bold text-primary align-middle"
+                                                    style="padding-left: 1.25rem;">
+                                                    #${category.id}
+                                                </td>
+                                                <td class="align-middle" style="padding-left: 1.25rem;">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                                            <i class="fas fa-folder text-primary"></i>
+                                                        </div>
+                                                        <a style="text-decoration: auto;" class="fw-semibold"
+                                                           href="${pageContext.request.contextPath}/categories?action=view&id=${category.id}">
+                                                                ${category.name}
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-muted align-middle" style="text-align: justify;">
+                                                    <c:choose>
+                                                        <c:when test="${not empty category.description}">
+                                                            ${category.description}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <em class="text-secondary">No description available</em>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <div class="btn-group" role="group">
+                                                        <a href="${pageContext.request.contextPath}/categories?action=edit&id=${category.id}"
+                                                           class="btn btn-sm btn-outline-primary" title="Edit Category"
+                                                           data-bs-toggle="tooltip">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                                onclick="confirmDelete(${category.id}, '${category.name}')"
+                                                                title="Delete Category"
+                                                                data-bs-toggle="tooltip">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="text-center py-5">
+                                    <div class="mb-4">
+                                        <i class="fas fa-folder-open fa-4x text-muted opacity-50"></i>
+                                    </div>
+                                    <h4 class="text-muted mb-3">No Categories Found</h4>
+                                    <p class="text-muted mb-4">Start organizing your videos by creating your first
+                                        category</p>
+                                    <a href="${pageContext.request.contextPath}/categories?action=add"
+                                       class="btn btn-primary btn-lg">
+                                        <i class="fas fa-plus me-2"></i>Create First Category
+                                    </a>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <c:choose>
-                        <c:when test="${not empty categories}">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead class="table-dark">
-                                    <tr>
-                                        <th width="10%">
-                                            <i class="fas fa-hashtag me-1"></i>ID
-                                        </th>
-                                        <th width="25%">
-                                            <i class="fas fa-tag me-1"></i>Category Name
-                                        </th>
-                                        <th width="45%">
-                                            <i class="fas fa-align-left me-1"></i>Description
-                                        </th>
-                                        <th width="20%" class="text-center">
-                                            <i class="fas fa-cogs me-1"></i>Actions
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="category" items="${categories}" varStatus="status">
-                                        <tr>
-                                            <td class="fw-bold text-primary align-middle" style="padding-left: 1.25rem;">
-                                                #${category.id}
-                                            </td>
-                                            <td class="align-middle" style="padding-left: 1.25rem;">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
-                                                        <i class="fas fa-folder text-primary"></i>
-                                                    </div>
-                                                    <span class="fw-semibold">${category.name}</span>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted align-middle" style="text-align: justify;">
-                                                <c:choose>
-                                                    <c:when test="${not empty category.description}">
-                                                        ${category.description}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <em class="text-secondary">No description available</em>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                <div class="btn-group" role="group">
-                                                    <a href="${pageContext.request.contextPath}/categories?action=edit&id=${category.id}"
-                                                       class="btn btn-sm btn-outline-primary" title="Edit Category"
-                                                       data-bs-toggle="tooltip">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                            onclick="confirmDelete(${category.id}, '${category.name}')"
-                                                            title="Delete Category"
-                                                            data-bs-toggle="tooltip">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="text-center py-5">
-                                <div class="mb-4">
-                                    <i class="fas fa-folder-open fa-4x text-muted opacity-50"></i>
-                                </div>
-                                <h4 class="text-muted mb-3">No Categories Found</h4>
-                                <p class="text-muted mb-4">Start organizing your videos by creating your first category</p>
-                                <a href="${pageContext.request.contextPath}/categories?action=add"
-                                   class="btn btn-primary btn-lg">
-                                    <i class="fas fa-plus me-2"></i>Create First Category
-                                </a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
 
-            <!-- Quick Actions -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h4 class="fw-bold mb-4">Quick Actions</h4>
-                </div>
-                <div class="col-md-6 mb-6">
-                    <a href="${pageContext.request.contextPath}/video-tricks"
-                       class="btn btn-info w-100 py-3 feature-card">
-                        <i class="fas fa-video fa-lg d-block mb-2"></i>
-                        <small>View Videos</small>
-                    </a>
-                </div>
-                <div class="col-md-6 mb-6">
-                    <a href="${pageContext.request.contextPath}/video-tricks?action=add"
-                       class="btn btn-success w-100 py-3 feature-card">
-                        <i class="fas fa-upload fa-lg d-block mb-2"></i>
-                        <small>Add Video</small>
-                    </a>
+                <!-- Quick Actions -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h4 class="fw-bold mb-4">Quick Actions</h4>
+                    </div>
+                    <div class="col-md-6 mb-6">
+                        <a href="${pageContext.request.contextPath}/video-tricks"
+                           class="btn btn-info w-100 py-3 feature-card">
+                            <i class="fas fa-video fa-lg d-block mb-2"></i>
+                            <small>View Videos</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-6">
+                        <a href="${pageContext.request.contextPath}/video-tricks?action=add"
+                           class="btn btn-success w-100 py-3 feature-card">
+                            <i class="fas fa-upload fa-lg d-block mb-2"></i>
+                            <small>Add Video</small>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -216,7 +223,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p class="mb-3">Are you sure you want to delete the category <strong class="text-primary" id="categoryName"></strong>?</p>
+                <p class="mb-3">Are you sure you want to delete the category <strong class="text-primary"
+                                                                                     id="categoryName"></strong>?</p>
                 <div class="alert alert-warning d-flex align-items-center">
                     <i class="fas fa-info-circle me-2"></i>
                     <small>This action cannot be undone and may affect associated videos.</small>
@@ -252,7 +260,7 @@
     }, 5000);
 
     // Initialize tooltips
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);

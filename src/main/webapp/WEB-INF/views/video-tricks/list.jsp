@@ -144,126 +144,128 @@
 </section>
 
 <!-- Video Grid -->
-<section class="py-5">
-    <div class="container">
-        <c:choose>
-            <c:when test="${empty videoTricks}">
-                <div class="text-center py-5">
-                    <i class="fas fa-video fa-4x text-muted mb-4"></i>
-                    <h3 class="text-muted mb-3">No video tricks available</h3>
-                    <p class="text-muted mb-4">
-                        <c:choose>
-                            <c:when test="${not empty keyword}">
-                                No results found for "<strong>${keyword}</strong>". Try adjusting your search terms.
-                            </c:when>
-                            <c:when test="${not empty selectedCategory}">
-                                No video tricks found in the "<strong>${selectedCategory.name}</strong>" category yet.
-                            </c:when>
-                            <c:otherwise>
-                                Start building your video trick library by adding your first video.
-                            </c:otherwise>
-                        </c:choose>
-                    </p>
-                    <div class="d-flex gap-3 justify-content-center">
-                        <a href="${pageContext.request.contextPath}/video-tricks?action=add"
-                           class="btn btn-primary btn-lg">
-                            <i class="fas fa-plus me-2"></i>Add Video Trick
-                        </a>
-                        <c:if test="${not empty keyword or not empty selectedCategory}">
-                            <a href="${pageContext.request.contextPath}/video-tricks"
-                               class="btn btn-outline-primary btn-lg">
-                                <i class="fas fa-list me-2"></i>View All Videos
+<div class="body-content">
+    <section class="py-5">
+        <div class="container">
+            <c:choose>
+                <c:when test="${empty videoTricks}">
+                    <div class="text-center py-5">
+                        <i class="fas fa-video fa-4x text-muted mb-4"></i>
+                        <h3 class="text-muted mb-3">No video tricks available</h3>
+                        <p class="text-muted mb-4">
+                            <c:choose>
+                                <c:when test="${not empty keyword}">
+                                    No results found for "<strong>${keyword}</strong>". Try adjusting your search terms.
+                                </c:when>
+                                <c:when test="${not empty selectedCategory}">
+                                    No video tricks found in the "<strong>${selectedCategory.name}</strong>" category yet.
+                                </c:when>
+                                <c:otherwise>
+                                    Start building your video trick library by adding your first video.
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
+                        <div class="d-flex gap-3 justify-content-center">
+                            <a href="${pageContext.request.contextPath}/video-tricks?action=add"
+                               class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus me-2"></i>Add Video Trick
                             </a>
-                        </c:if>
+                            <c:if test="${not empty keyword or not empty selectedCategory}">
+                                <a href="${pageContext.request.contextPath}/video-tricks"
+                                   class="btn btn-outline-primary btn-lg">
+                                    <i class="fas fa-list me-2"></i>View All Videos
+                                </a>
+                            </c:if>
+                        </div>
                     </div>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="row g-4">
-                    <c:forEach var="videoTrick" items="${videoTricks}">
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="card video-card h-100">
-                                <div class="thumbnail-container">
-                                    <c:choose>
-                                        <c:when test="${not empty videoTrick.thumbnailUrl}">
-                                            <img src="${videoTrick.thumbnailUrl}" alt="${videoTrick.title}"
-                                                 class="thumbnail-img"
-                                                 onerror="this.src='https://via.placeholder.com/320x180/6c757d/ffffff?text=No+Image'">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="https://via.placeholder.com/320x180/6c757d/ffffff?text=Video+Trick"
-                                                 alt="${videoTrick.title}" class="thumbnail-img">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:if test="${not empty videoTrick.duration}">
-                                        <span class="duration-badge">${videoTrick.duration}</span>
-                                    </c:if>
-                                </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row g-4">
+                        <c:forEach var="videoTrick" items="${videoTricks}">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="card video-card h-100">
+                                    <div class="thumbnail-container">
+                                        <c:choose>
+                                            <c:when test="${not empty videoTrick.thumbnailUrl}">
+                                                <img src="${videoTrick.thumbnailUrl}" alt="${videoTrick.title}"
+                                                     class="thumbnail-img"
+                                                     onerror="this.src='https://via.placeholder.com/320x180/6c757d/ffffff?text=No+Image'">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="https://via.placeholder.com/320x180/6c757d/ffffff?text=Video+Trick"
+                                                     alt="${videoTrick.title}" class="thumbnail-img">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:if test="${not empty videoTrick.duration}">
+                                            <span class="duration-badge">${videoTrick.duration}</span>
+                                        </c:if>
+                                    </div>
 
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title fw-bold" title="${videoTrick.title}">
-                                            ${fn:length(videoTrick.title) > 50 ?
-                                                    fn:substring(videoTrick.title, 0, 47).concat('...') :
-                                                    videoTrick.title}
-                                    </h6>
+                                    <div class="card-body d-flex flex-column">
+                                        <h6 class="card-title fw-bold" title="${videoTrick.title}">
+                                                ${fn:length(videoTrick.title) > 50 ?
+                                                        fn:substring(videoTrick.title, 0, 47).concat('...') :
+                                                        videoTrick.title}
+                                        </h6>
 
-                                    <c:if test="${not empty videoTrick.description}">
-                                        <p class="card-text text-muted small mb-3">
-                                                ${fn:length(videoTrick.description) > 80 ?
-                                                        fn:substring(videoTrick.description, 0, 77).concat('...') :
-                                                        videoTrick.description}
-                                        </p>
-                                    </c:if>
+                                        <c:if test="${not empty videoTrick.description}">
+                                            <p class="card-text text-muted small mb-3">
+                                                    ${fn:length(videoTrick.description) > 80 ?
+                                                            fn:substring(videoTrick.description, 0, 77).concat('...') :
+                                                            videoTrick.description}
+                                            </p>
+                                        </c:if>
 
-                                    <div class="mt-auto">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <c:if test="${not empty videoTrick.difficultyLevel}">
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <c:if test="${not empty videoTrick.difficultyLevel}">
                                                 <span class="badge difficulty-badge
                                                     ${videoTrick.difficultyLevel == 'Beginner' ? 'bg-success' :
                                                       videoTrick.difficultyLevel == 'Intermediate' ? 'bg-warning' : 'bg-danger'}">
                                                         ${videoTrick.difficultyLevel}
                                                 </span>
-                                            </c:if>
-                                            <small class="text-muted">
-                                                <c:forEach var="category" items="${categories}">
-                                                    <c:if test="${category.id == videoTrick.categoryId}">
-                                                        <i class="fas fa-tag me-1"></i>${category.name}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </small>
-                                        </div>
+                                                </c:if>
+                                                <small class="text-muted">
+                                                    <c:forEach var="category" items="${categories}">
+                                                        <c:if test="${category.id == videoTrick.categoryId}">
+                                                            <i class="fas fa-tag me-1"></i>${category.name}
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </small>
+                                            </div>
 
-                                        <div class="d-grid gap-2">
-                                            <div class="btn-group" role="group">
-                                                <a href="${pageContext.request.contextPath}/video-tricks?action=view&id=${videoTrick.id}"
-                                                   class="btn btn-outline-primary btn-sm" title="View Details">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="${videoTrick.url}" target="_blank"
-                                                   class="btn btn-primary btn-sm" title="Watch Video">
-                                                    <i class="fas fa-play"></i> Watch
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-outline-danger btn-sm"
-                                                        title="Delete"
-                                                        onclick="confirmDelete(${videoTrick.id}, '${videoTrick.title}')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                            <div class="d-grid gap-2">
+                                                <div class="btn-group" role="group">
+                                                    <a href="${pageContext.request.contextPath}/video-tricks?action=view&id=${videoTrick.id}"
+                                                       class="btn btn-outline-primary btn-sm" title="View Details">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="${videoTrick.url}" target="_blank"
+                                                       class="btn btn-primary btn-sm" title="Watch Video">
+                                                        <i class="fas fa-play"></i> Watch
+                                                    </a>
+                                                    <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
+                                                       class="btn btn-outline-warning btn-sm" title="Edit">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm"
+                                                            title="Delete"
+                                                            onclick="confirmDelete(${videoTrick.id}, '${videoTrick.title}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</section>
+                        </c:forEach>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </section>
+</div>
 
 <!-- Stats Section -->
 <c:if test="${not empty videoTricks}">

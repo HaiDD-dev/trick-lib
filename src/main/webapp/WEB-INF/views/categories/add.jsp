@@ -36,158 +36,162 @@
     </div>
 </nav>
 
-<!-- Page Header -->
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="display-5 fw-bold mb-3">
-                    <i class="fas fa-folder-plus me-3"></i>Add New Category
-                </h1>
-                <p class="lead mb-0">Create a new category to organize your trick videos effectively</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <i class="fas fa-tags display-1 opacity-75"></i>
+<div class="body-content">
+    <!-- Page Header -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-folder-plus me-3"></i>Add New Category
+                    </h1>
+                    <p class="lead mb-0">Create a new category to organize your trick videos effectively</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-tags display-1 opacity-75"></i>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Main Content -->
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="${pageContext.request.contextPath}/categories">
-                            <i class="fas fa-list-alt me-1"></i> Categories
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <i class="fas fa-plus me-1"></i> Add New
-                    </li>
-                </ol>
-            </nav>
+    <!-- Main Content -->
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="${pageContext.request.contextPath}/categories">
+                                <i class="fas fa-list-alt me-1"></i> Categories
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <i class="fas fa-plus me-1"></i> Add New
+                        </li>
+                    </ol>
+                </nav>
 
-            <!-- Add Category Form -->
-            <div class="card form-card">
-                <div class="card-header text-white">
-                    <h4 class="card-title mb-0">
-                        <i class="fas fa-folder-plus me-2"></i> Category Details
-                    </h4>
-                </div>
-                <div class="card-body p-4">
-                    <!-- Error Messages -->
-                    <c:if test="${not empty error}">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i> ${error}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    </c:if>
-
-                    <form action="${pageContext.request.contextPath}/categories" method="post" novalidate>
-                        <input type="hidden" name="action" value="add">
-
-                        <div class="mb-4">
-                            <label for="name" class="form-label fw-bold">
-                                <i class="fas fa-tag text-primary me-1"></i>
-                                Category Name <span class="text-danger">*</span>
-                            </label>
-                            <input type="text"
-                                   class="form-control form-control-lg"
-                                   id="name"
-                                   name="name"
-                                   value="${param.name}"
-                                   placeholder="Enter a unique category name"
-                                   required
-                                   maxlength="100">
-                            <div class="invalid-feedback">
-                                <i class="fas fa-times-circle me-1"></i>
-                                Please enter a category name
+                <!-- Add Category Form -->
+                <div class="card form-card">
+                    <div class="card-header text-white">
+                        <h4 class="card-title mb-0">
+                            <i class="fas fa-folder-plus me-2"></i> Category Details
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Error Messages -->
+                        <c:if test="${not empty error}">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i> ${error}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
-                            <div class="form-text">
-                                <i class="fas fa-info-circle me-1"></i>
-                                The category name must be unique and descriptive
-                            </div>
-                        </div>
+                        </c:if>
 
-                        <div class="mb-4">
-                            <label for="description" class="form-label fw-bold">
-                                <i class="fas fa-align-left text-secondary me-1"></i>
-                                Description
-                            </label>
-                            <textarea class="form-control"
-                                      id="description"
-                                      name="description"
-                                      rows="5"
-                                      placeholder="Provide a detailed description of what types of tricks belong in this category..."
-                                      maxlength="500">${param.description}</textarea>
-                            <div class="form-text">
-                                <i class="fas fa-lightbulb me-1"></i>
-                                A good description helps users understand what content fits in this category
-                            </div>
-                        </div>
+                        <form action="${pageContext.request.contextPath}/categories" method="post" novalidate>
+                            <input type="hidden" name="action" value="add">
 
-                        <div class="row mt-5 d-flex justify-content-between">
-                            <div class="col-md-4 mb-4 text-center">
-                                <a href="${pageContext.request.contextPath}/categories"
-                                   class="btn btn-secondary btn-lg me-2 w-100">
-                                    <i class="fas fa-arrow-left me-2"></i> Go back
-                                </a>
-                            </div>
-                            <div class="col-md-4 mb-4 text-center">
-                                <button type="reset" class="btn btn-outline-warning btn-lg me-2 w-100">
-                                    <i class="fas fa-undo me-2"></i> Reset
-                                </button>
-                            </div>
-                            <div class="col-md-4 mb-4 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg px-4 w-100">
-                                    <i class="fas fa-save me-2"></i> Create
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Tips Section -->
-            <div class="card tips-card mt-4">
-                <div class="card-header border-0">
-                    <h6 class="card-title mb-0 text-white">
-                        <i class="fas fa-lightbulb me-2"></i> Pro Tips for Creating Categories
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <div class="d-flex align-items-start">
-                                <i class="fas fa-check-circle text-white me-2 mt-1"></i>
-                                <div>
-                                    <strong class="text-white">Be Specific</strong>
-                                    <p class="mb-0 text-white-50 small">Choose clear, descriptive names that instantly
-                                        communicate the category's purpose</p>
+                            <div class="mb-4">
+                                <label for="name" class="form-label fw-bold">
+                                    <i class="fas fa-tag text-primary me-1"></i>
+                                    Category Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       class="form-control form-control-lg"
+                                       id="name"
+                                       name="name"
+                                       value="${param.name}"
+                                       placeholder="Enter a unique category name"
+                                       required
+                                       maxlength="100">
+                                <div class="invalid-feedback">
+                                    <i class="fas fa-times-circle me-1"></i>
+                                    Please enter a category name
+                                </div>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    The category name must be unique and descriptive
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="d-flex align-items-start">
-                                <i class="fas fa-check-circle text-white me-2 mt-1"></i>
-                                <div>
-                                    <strong class="text-white">Add Context</strong>
-                                    <p class="mb-0 text-white-50 small">Detailed descriptions help users find and
-                                        categorize content correctly</p>
+
+                            <div class="mb-4">
+                                <label for="description" class="form-label fw-bold">
+                                    <i class="fas fa-align-left text-secondary me-1"></i>
+                                    Description
+                                </label>
+                                <textarea class="form-control"
+                                          id="description"
+                                          name="description"
+                                          rows="5"
+                                          placeholder="Provide a detailed description of what types of tricks belong in this category..."
+                                          maxlength="500">${param.description}</textarea>
+                                <div class="form-text">
+                                    <i class="fas fa-lightbulb me-1"></i>
+                                    A good description helps users understand what content fits in this category
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="d-flex align-items-start">
-                                <i class="fas fa-check-circle text-white me-2 mt-1"></i>
-                                <div>
-                                    <strong class="text-white">Avoid Duplicates</strong>
-                                    <p class="mb-0 text-white-50 small">Check existing categories to prevent overlap and
-                                        confusion</p>
+
+                            <div class="row mt-5 d-flex justify-content-between">
+                                <div class="col-md-4 mb-4 text-center">
+                                    <a href="${pageContext.request.contextPath}/categories"
+                                       class="btn btn-secondary btn-lg me-2 w-100">
+                                        <i class="fas fa-arrow-left me-2"></i> Go back
+                                    </a>
+                                </div>
+                                <div class="col-md-4 mb-4 text-center">
+                                    <button type="reset" class="btn btn-outline-warning btn-lg me-2 w-100">
+                                        <i class="fas fa-undo me-2"></i> Reset
+                                    </button>
+                                </div>
+                                <div class="col-md-4 mb-4 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-4 w-100">
+                                        <i class="fas fa-save me-2"></i> Create
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tips Section -->
+                <div class="card tips-card mt-4">
+                    <div class="card-header border-0">
+                        <h6 class="card-title mb-0 text-white">
+                            <i class="fas fa-lightbulb me-2"></i> Pro Tips for Creating Categories
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-white me-2 mt-1"></i>
+                                    <div>
+                                        <strong class="text-white">Be Specific</strong>
+                                        <p class="mb-0 text-white-50 small">Choose clear, descriptive names that
+                                            instantly
+                                            communicate the category's purpose</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-white me-2 mt-1"></i>
+                                    <div>
+                                        <strong class="text-white">Add Context</strong>
+                                        <p class="mb-0 text-white-50 small">Detailed descriptions help users find and
+                                            categorize content correctly</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-white me-2 mt-1"></i>
+                                    <div>
+                                        <strong class="text-white">Avoid Duplicates</strong>
+                                        <p class="mb-0 text-white-50 small">Check existing categories to prevent overlap
+                                            and
+                                            confusion</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
