@@ -6,6 +6,11 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 40px 0;
+    margin-top: 60px;
+}
+
+.body-content{
+    margin-bottom: 150px;
 }
 
 /* Feature Card Shadow and Hover */
@@ -17,6 +22,15 @@
 
 .feature-card:hover {
     transform: translateY(-5px);
+}
+
+.navbar {
+    background: linear-gradient(135deg, #222831 0%, #565761 100%);
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 /* Navbar Brand */
@@ -70,6 +84,11 @@
     color: #fff;
 }
 
+img {
+    border-radius: 16px;
+    width: 100%;
+}
+
 /* Table Hover */
 .table-hover tbody tr:hover {
     background-color: rgba(102, 126, 234, 0.05);
@@ -79,6 +98,7 @@
 .card {
     border: none;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 
 /* Info Card */
@@ -134,16 +154,11 @@
 }
 
 .breadcrumb-item a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-}
-
-.breadcrumb-item a:hover {
     color: white;
 }
 
 .breadcrumb-item.active {
-    color: rgba(255, 255, 255, 0.9);
+    color: white;
 }
 
 /* Alerts */
@@ -203,9 +218,66 @@
     margin-top: 45px;
 }
 
-/* Footer */
-footer.bg-dark {
+.btn-outline-secondary:hover {
     color: #fff;
+    background: linear-gradient(135deg, #7F8CAA 0%, #333446 100%);
+}
+
+.btn-outline-info {
+    color: #60B5FF;
+    border-color: #60B5FF;
+}
+
+.btn-outline-info:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #AFDDFF 0%, #60B5FF 100%);
+    border-color: #AFDDFF;
+}
+
+.btn-outline-danger {
+    color: #CB0404;
+    border-color: #CB0404;
+}
+
+.btn-outline-danger:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #F4631E 0%, #CB0404 100%);
+    border-color: #F4631E;
+}
+
+.btn-outline-primary {
+    color: #5409DA;
+    border-color: #5409DA;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #4E71FF 0%, #5409DA 100%);
+    border-color: #4E71FF;
+}
+
+.btn-outline-warning {
+    color: #FA812F;
+    border-color: #FA812F;
+}
+
+.btn-outline-warning:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #FFB22C 0%, #FA812F 100%);
+    border-color: #FFB22C;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+footer.bg-dark {
+    background: linear-gradient(135deg, #222831 0%, #565761 100%);
 }
 
 footer .navbar-brand, footer h5 {

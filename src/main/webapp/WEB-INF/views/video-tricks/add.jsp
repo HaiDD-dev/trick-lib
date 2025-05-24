@@ -36,163 +36,171 @@
     </div>
 </nav>
 
-<!-- Page Header -->
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="display-5 fw-bold mb-3">
-                    <i class="fas fa-plus-circle me-3"></i>Add New Trick Video
-                </h1>
-                <p class="lead mb-0">Share your amazing tricks with the TrickLib community</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <i class="fas fa-video-plus display-1 opacity-75"></i>
+<div class="body-content">
+    <!-- Page Header -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-plus-circle me-3"></i>Add New Trick Video
+                    </h1>
+                    <p class="lead mb-0">Share your amazing tricks with the TrickLib community</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-video-plus display-1 opacity-75"></i>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Main Content -->
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card form-card">
-                <div class="card-header text-white">
-                    <h4 class="mb-0">
-                        <i class="fas fa-film me-2"></i>
-                        Video Details
-                    </h4>
-                </div>
-                <div class="card-body p-4">
-                    <!-- Error Message -->
-                    <c:if test="${not empty error}">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                                ${error}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    </c:if>
-
-                    <!-- Success Message -->
-                    <c:if test="${not empty message}">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>
-                                ${message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    </c:if>
-
-                    <form action="${pageContext.request.contextPath}/video-tricks" method="post">
-                        <input type="hidden" name="action" value="add">
-
-                        <div class="row">
-                            <div class="col-md-12 mb-4">
-                                <label for="title" class="form-label fw-bold">
-                                    <i class="fas fa-heading me-1"></i>
-                                    Title <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control form-control-lg" id="title" name="title"
-                                       value="${param.title}" placeholder="Enter an engaging title for your trick video"
-                                       required>
+    <!-- Main Content -->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card form-card">
+                    <div class="card-header text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-film me-2"></i>
+                            Video Details
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Error Message -->
+                        <c:if test="${not empty error}">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                    ${error}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
-                        </div>
+                        </c:if>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <label for="categoryId" class="form-label fw-bold">
-                                    <i class="fas fa-tags me-1"></i>
-                                    Category <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-select form-select-lg" id="categoryId" name="categoryId" required>
-                                    <option value="">Choose a category</option>
-                                    <c:forEach var="category" items="${categories}">
-                                        <option value="${category.id}"
-                                            ${param.categoryId == category.id ? 'selected' : ''}>
-                                                ${category.name}
-                                        </option>
-                                    </c:forEach>
-                                </select>
+                        <!-- Success Message -->
+                        <c:if test="${not empty message}">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                    ${message}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
+                        </c:if>
 
-                            <div class="col-md-6 mb-4">
-                                <label for="difficultyLevel" class="form-label fw-bold">
-                                    <i class="fas fa-chart-line me-1"></i>
-                                    Difficulty Level
-                                </label>
-                                <select class="form-select form-select-lg" id="difficultyLevel" name="difficultyLevel">
-                                    <option value="Beginner" ${param.difficultyLevel == 'Beginner' ? 'selected' : ''}>
-                                        <i class="fas fa-seedling"></i> Beginner
-                                    </option>
-                                    <option value="Intermediate" ${param.difficultyLevel == 'Intermediate' ? 'selected' : ''}>
-                                        <i class="fas fa-adjust"></i> Intermediate
-                                    </option>
-                                    <option value="Advanced" ${param.difficultyLevel == 'Advanced' ? 'selected' : ''}>
-                                        <i class="fas fa-fire"></i> Advanced
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+                        <form action="${pageContext.request.contextPath}/video-tricks" method="post">
+                            <input type="hidden" name="action" value="add">
 
-                        <div class="row">
-                            <div class="col-md-8 mb-4">
-                                <label for="url" class="form-label fw-bold">
-                                    <i class="fas fa-link me-1"></i>
-                                    Video URL <span class="text-danger">*</span>
-                                </label>
-                                <input type="url" class="form-control form-control-lg" id="url" name="url"
-                                       value="${param.url}" placeholder="https://youtube.com/watch?v=..." required>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Supported: YouTube, Vimeo, and other video platforms
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label for="title" class="form-label fw-bold">
+                                        <i class="fas fa-heading me-1"></i>
+                                        Title <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg" id="title" name="title"
+                                           value="${param.title}"
+                                           placeholder="Enter an engaging title for your trick video"
+                                           required>
                                 </div>
                             </div>
 
-                            <div class="col-md-4 mb-4">
-                                <label for="duration" class="form-label fw-bold">
-                                    <i class="fas fa-clock me-1"></i>
-                                    Duration
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="categoryId" class="form-label fw-bold">
+                                        <i class="fas fa-tags me-1"></i>
+                                        Category <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select form-select-lg" id="categoryId" name="categoryId"
+                                            required>
+                                        <option value="">Choose a category</option>
+                                        <c:forEach var="category" items="${categories}">
+                                            <option value="${category.id}"
+                                                ${param.categoryId == category.id ? 'selected' : ''}>
+                                                    ${category.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <label for="difficultyLevel" class="form-label fw-bold">
+                                        <i class="fas fa-chart-line me-1"></i>
+                                        Difficulty Level
+                                    </label>
+                                    <select class="form-select form-select-lg" id="difficultyLevel"
+                                            name="difficultyLevel">
+                                        <option value="Beginner" ${param.difficultyLevel == 'Beginner' ? 'selected' : ''}>
+                                            <i class="fas fa-seedling"></i> Beginner
+                                        </option>
+                                        <option value="Intermediate" ${param.difficultyLevel == 'Intermediate' ? 'selected' : ''}>
+                                            <i class="fas fa-adjust"></i> Intermediate
+                                        </option>
+                                        <option value="Advanced" ${param.difficultyLevel == 'Advanced' ? 'selected' : ''}>
+                                            <i class="fas fa-fire"></i> Advanced
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8 mb-4">
+                                    <label for="url" class="form-label fw-bold">
+                                        <i class="fas fa-link me-1"></i>
+                                        Video URL <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="url" class="form-control form-control-lg" id="url" name="url"
+                                           value="${param.url}" placeholder="https://youtube.com/watch?v=..." required>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Supported: YouTube, Vimeo, and other video platforms
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-4">
+                                    <label for="duration" class="form-label fw-bold">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Duration
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg" id="duration"
+                                           name="duration"
+                                           value="${param.duration}" placeholder="5:30">
+                                    <div class="form-text">Format: MM:SS</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="thumbnailUrl" class="form-label fw-bold">
+                                    <i class="fas fa-image me-1"></i>
+                                    Thumbnail URL
                                 </label>
-                                <input type="text" class="form-control form-control-lg" id="duration" name="duration"
-                                       value="${param.duration}" placeholder="5:30">
-                                <div class="form-text">Format: MM:SS</div>
+                                <input type="url" class="form-control form-control-lg" id="thumbnailUrl"
+                                       name="thumbnailUrl"
+                                       value="${param.thumbnailUrl}" placeholder="https://example.com/thumbnail.jpg">
+                                <div class="form-text">
+                                    <i class="fas fa-lightbulb me-1"></i>
+                                    A good thumbnail increases video engagement
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-4">
-                            <label for="thumbnailUrl" class="form-label fw-bold">
-                                <i class="fas fa-image me-1"></i>
-                                Thumbnail URL
-                            </label>
-                            <input type="url" class="form-control form-control-lg" id="thumbnailUrl" name="thumbnailUrl"
-                                   value="${param.thumbnailUrl}" placeholder="https://example.com/thumbnail.jpg">
-                            <div class="form-text">
-                                <i class="fas fa-lightbulb me-1"></i>
-                                A good thumbnail increases video engagement
+                            <div class="mb-4">
+                                <label for="description" class="form-label fw-bold">
+                                    <i class="fas fa-align-left me-1"></i>
+                                    Description
+                                </label>
+                                <textarea class="form-control" id="description" name="description"
+                                          rows="5"
+                                          placeholder="Provide a detailed description of the trick, including tips, techniques, and what viewers will learn...">${param.description}</textarea>
                             </div>
-                        </div>
 
-                        <div class="mb-4">
-                            <label for="description" class="form-label fw-bold">
-                                <i class="fas fa-align-left me-1"></i>
-                                Description
-                            </label>
-                            <textarea class="form-control" id="description" name="description"
-                                      rows="5"
-                                      placeholder="Provide a detailed description of the trick, including tips, techniques, and what viewers will learn...">${param.description}</textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mt-5">
-                            <a href="${pageContext.request.contextPath}/video-tricks" class="btn btn-secondary btn-lg">
-                                <i class="fas fa-arrow-left me-2"></i>
-                                Back to Videos
-                            </a>
-                            <button type="submit" class="btn btn-primary btn-lg px-4">
-                                <i class="fas fa-save me-2"></i>
-                                Add Trick Video
-                            </button>
-                        </div>
-                    </form>
+                            <div class="d-flex justify-content-between align-items-center mt-5">
+                                <a href="${pageContext.request.contextPath}/video-tricks"
+                                   class="btn btn-secondary btn-lg">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    Back to Videos
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg px-4">
+                                    <i class="fas fa-save me-2"></i>
+                                    Add Trick Video
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
