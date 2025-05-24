@@ -1,3 +1,4 @@
 # trick-lib
 Trick-Lib is a specialized web platform developed for the Tricking community — a dynamic sport that blends martial arts, acrobatics, and complex kicking techniques. The application is built using Java Servlet, JSP, and MSSQL, with Maven for project management and deployed on an Apache Tomcat server.
+
 The website offers powerful video management and sharing features, enabling users from beginners to advanced trickers to easily search, categorize, and learn new techniques through an intuitive video library. Trick-Lib serves as a valuable tool for skill development, knowledge sharing, and community connection within the world of Tricking.
