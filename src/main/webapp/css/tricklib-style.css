@@ -1,0 +1,225 @@
+/* TrickLib Common Stylesheet */
+
+/* Hero Section Gradient */
+.hero-section,
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 0;
+}
+
+/* Feature Card Shadow and Hover */
+.feature-card {
+    transition: transform 0.3s;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Navbar Brand */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #9bc68b 0%, #328E6E 100%);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #9bc68b 0%, #328E6E 100%);
+    transform: translateY(-1px);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #FFB200 0%, #EB5B00 100%);
+    border: none;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #FFB200 0%, #EB5B00 100%);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #8DD8FF 0%, #5409DA 100%);
+    border: none;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #8DD8FF 0%, #5409DA 100%);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+/* Table Hover */
+.table-hover tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+/* Card General */
+.card {
+    border: none;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Info Card */
+.info-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Video Thumbnail */
+.video-thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Difficulty Badge */
+.difficulty-badge {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+}
+
+/* Action Button */
+.action-btn {
+    min-width: 120px;
+}
+
+/* Video Info */
+.video-info {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.video-info:hover {
+    transform: translateY(-2px);
+}
+
+/* Breadcrumb Styling */
+.breadcrumb {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+.breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: white;
+}
+
+.breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 10px;
+}
+
+/* Form Styles */
+.form-card {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.form-card .card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px 15px 0 0 !important;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Tips Card */
+.tips-card {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+}
+
+/* Main Card for Edit Page */
+.main-card {
+    transition: transform 0.3s;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.main-card:hover {
+    transform: translateY(-2px);
+}
+
+.info-card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Modal */
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.2);
+}
+
+.search-section {
+    margin-top: 45px;
+}
+
+/* Footer */
+footer.bg-dark {
+    color: #fff;
+}
+
+footer .navbar-brand, footer h5 {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Responsive Padding Fixes */
+@media (max-width: 768px) {
+    .hero-section, .page-header {
+        padding: 24px 0;
+    }
+
+    .video-info, .info-card, .card {
+        margin-bottom: 24px;
+    }
+}

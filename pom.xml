@@ -61,6 +61,13 @@
 
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub HaiDD-dev Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/HaiDD-dev/trick-lib</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <finalName>tricklib</finalName>

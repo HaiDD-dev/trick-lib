@@ -8,28 +8,7 @@
     <title>TrickLib - Trick Video Library</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0;
-        }
-
-        .feature-card {
-            transition: transform 0.3s;
-            border: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-    </style>
+    <link href="${pageContext.request.contextPath}/css/tricklib-style.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation -->
@@ -44,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/" >Home</a>
+                    <a class="nav-link active" href="${pageContext.request.contextPath}/" >Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/video-tricks">Video Tricks</a>

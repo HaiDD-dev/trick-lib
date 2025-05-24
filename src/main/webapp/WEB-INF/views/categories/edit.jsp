@@ -5,37 +5,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Category</title>
+    <title>Edit Category - TrickLib</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/tricklib-style.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-4">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+            <i class="fas fa-magic"></i> TrickLib
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/video-tricks">Video Tricks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="${pageContext.request.contextPath}/categories">Categories</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-3">Edit Category</h1>
+                <p class="lead mb-4">Modify category information to better organize your trick videos.</p>
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="${pageContext.request.contextPath}/categories"
+                               class="text-white text-decoration-none">
+                                <i class="fas fa-list-alt"></i> Categories
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active text-white-50">
+                            <i class="fas fa-edit"></i> Edit #${category.id}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-edit display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="${pageContext.request.contextPath}/categories" class="text-decoration-none">
-                            <i class="fas fa-list-alt"></i> Categories
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <i class="fas fa-edit"></i> Edit #${category.id}
-                    </li>
-                </ol>
-            </nav>
-
             <!-- Edit Category Form -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-warning text-dark">
+            <div class="card main-card">
+                <div class="card-header"
+                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
                     <h4 class="card-title mb-0">
                         <i class="fas fa-edit"></i> Edit Category
                     </h4>
-                    <small class="text-muted">ID: ${category.id}</small>
+                    <small class="text-white-50">ID: ${category.id}</small>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <!-- Error Messages -->
                     <c:if test="${not empty error}">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -113,7 +155,7 @@
                                     onclick="resetForm()">
                                 <i class="fas fa-undo"></i> Restore
                             </button>
-                            <button type="submit" class="btn btn-warning text-dark">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Update
                             </button>
                         </div>
@@ -122,7 +164,7 @@
             </div>
 
             <!-- Current Values Display -->
-            <div class="card mt-4 border-secondary">
+            <div class="card info-card mt-4 border-secondary">
                 <div class="card-header bg-secondary text-white">
                     <h6 class="card-title mb-0">
                         <i class="fas fa-eye"></i> Current Information
@@ -134,7 +176,8 @@
                             <strong><i class="fas fa-hashtag text-muted"></i> ID:</strong>
                         </div>
                         <div class="col-sm-8">
-                            <span class="badge bg-primary">${category.id}</span>
+                            <span class="badge"
+                                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">${category.id}</span>
                         </div>
                     </div>
                     <hr>
@@ -166,7 +209,7 @@
             </div>
 
             <!-- Help Section -->
-            <div class="card mt-4 border-info">
+            <div class="card info-card mt-4 border-info">
                 <div class="card-header bg-info text-white">
                     <h6 class="card-title mb-0">
                         <i class="fas fa-lightbulb"></i> Edit Tips
@@ -192,6 +235,21 @@
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><i class="fas fa-magic"></i> TrickLib</h5>
+                <p class="mb-0">A professional trick video library</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0">&copy; 2025 TrickLib. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
