@@ -31,9 +31,6 @@ public class CategoryServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listCategories(request, response);
-                break;
             case "add":
                 showAddForm(request, response);
                 break;

@@ -35,9 +35,6 @@ public class VideoTrickServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listVideoTricks(request, response);
-                break;
             case "add":
                 showAddForm(request, response);
                 break;
@@ -84,10 +81,23 @@ public class VideoTrickServlet extends HttpServlet {
     }
 
     private void listVideoTricksByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-        List<VideoTrick> videoTricks = videoTrickDAO.getVideoTricksByCategory(categoryId);
+        String categoryIdParam = request.getParameter("categoryId");
+        List<VideoTrick> videoTricks;
+        Category selectedCategory = null;
+
         List<Category> categories = categoryDAO.getAllCategories();
-        Category selectedCategory = categoryDAO.getCategoryById(categoryId);
+
+        if (categoryIdParam == null || categoryIdParam.isEmpty()) {
+            videoTricks = videoTrickDAO.getAllVideoTricks();
+        } else {
+            try {
+                int categoryId = Integer.parseInt(categoryIdParam);
+                videoTricks = videoTrickDAO.getVideoTricksByCategory(categoryId);
+                selectedCategory = categoryDAO.getCategoryById(categoryId);
+            } catch (NumberFormatException e) {
+                videoTricks = videoTrickDAO.getAllVideoTricks();
+            }
+        }
 
         request.setAttribute("videoTricks", videoTricks);
         request.setAttribute("categories", categories);
