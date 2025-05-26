@@ -90,61 +90,61 @@
     </div>
 </c:if>
 
-<!-- Search and Filter Section -->
-<section class="search-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="row g-3">
-                    <div class="col-md-8">
-                        <form action="${pageContext.request.contextPath}/video-tricks" method="get" class="d-flex">
-                            <input type="hidden" name="action" value="search">
-                            <div class="input-group">
+<div class="body-content">
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <form action="${pageContext.request.contextPath}/video-tricks" method="get" class="d-flex">
+                                <input type="hidden" name="action" value="search">
+                                <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fas fa-search"></i>
                                 </span>
-                                <input type="text" class="form-control form-control-lg" name="keyword"
-                                       value="${keyword}" placeholder="Search video tricks by title or description...">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    Search
-                                </button>
-                                <c:if test="${not empty keyword}">
-                                    <a href="${pageContext.request.contextPath}/video-tricks"
-                                       class="btn btn-outline-secondary btn-lg">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </c:if>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-4">
-                        <form action="${pageContext.request.contextPath}/video-tricks" method="get">
-                            <input type="hidden" name="action" value="by-category">
-                            <div class="input-group">
+                                    <input type="text" class="form-control form-control-lg" name="keyword"
+                                           value="${keyword}"
+                                           placeholder="Search video tricks by title or description...">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        Search
+                                    </button>
+                                    <c:if test="${not empty keyword}">
+                                        <a href="${pageContext.request.contextPath}/video-tricks"
+                                           class="btn btn-outline-secondary btn-lg">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </c:if>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="${pageContext.request.contextPath}/video-tricks" method="get">
+                                <input type="hidden" name="action" value="by-category">
+                                <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fas fa-filter"></i>
                                 </span>
-                                <select class="form-select form-select-lg" name="categoryId"
-                                        onchange="this.form.submit()">
-                                    <option value="">All categories</option>
-                                    <c:forEach var="category" items="${categories}">
-                                        <option value="${category.id}"
-                                            ${selectedCategory != null && selectedCategory.id == category.id ? 'selected' : ''}>
-                                                ${category.name}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </form>
+                                    <select class="form-select form-select-lg" name="categoryId"
+                                            onchange="this.form.submit()">
+                                        <option value="">All categories</option>
+                                        <c:forEach var="category" items="${categories}">
+                                            <option value="${category.id}"
+                                                ${selectedCategory != null && selectedCategory.id == category.id ? 'selected' : ''}>
+                                                    ${category.name}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Video Grid -->
-<div class="body-content">
+    </section>
+    <!-- Video Grid -->
     <section class="py-5">
         <div class="container">
             <c:choose>
@@ -265,58 +265,56 @@
             </c:choose>
         </div>
     </section>
-</div>
-
-<!-- Stats Section -->
-<c:if test="${not empty videoTricks}">
-    <section class="stats-section">
-        <div class="container">
-            <div class="text-center">
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="card feature-card border-0 bg-transparent">
-                            <div class="card-body">
-                                <i class="fas fa-video fa-2x text-primary mb-2"></i>
-                                <h5 class="card-title">${fn:length(videoTricks)}</h5>
-                                <p class="card-text text-muted">
-                                    Video<c:if test="${fn:length(videoTricks) != 1}">s</c:if> Found
-                                </p>
+    <!-- Stats Section -->
+    <c:if test="${not empty videoTricks}">
+        <section class="stats-section">
+            <div class="container">
+                <div class="text-center">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card feature-card border-0 bg-transparent">
+                                <div class="card-body">
+                                    <i class="fas fa-video fa-2x text-primary mb-2"></i>
+                                    <h5 class="card-title">${fn:length(videoTricks)}</h5>
+                                    <p class="card-text text-muted">
+                                        Video<c:if test="${fn:length(videoTricks) != 1}">s</c:if> Found
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card feature-card border-0 bg-transparent">
-                            <div class="card-body">
-                                <i class="fas fa-tags fa-2x text-success mb-2"></i>
-                                <h5 class="card-title">${fn:length(categories)}</h5>
-                                <p class="card-text text-muted">
-                                    Categor<c:if test="${fn:length(categories) != 1}">ies</c:if><c:if
-                                        test="${fn:length(categories) == 1}">y</c:if>
-                                </p>
+                        <div class="col-md-4">
+                            <div class="card feature-card border-0 bg-transparent">
+                                <div class="card-body">
+                                    <i class="fas fa-tags fa-2x text-success mb-2"></i>
+                                    <h5 class="card-title">${fn:length(categories)}</h5>
+                                    <p class="card-text text-muted">
+                                        Categor<c:if test="${fn:length(categories) != 1}">ies</c:if><c:if
+                                            test="${fn:length(categories) == 1}">y</c:if>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card feature-card border-0 bg-transparent">
-                            <div class="card-body">
-                                <i class="fas fa-filter fa-2x text-warning mb-2"></i>
-                                <h5 class="card-title">
-                                    <c:choose>
-                                        <c:when test="${not empty selectedCategory}">Filtered</c:when>
-                                        <c:when test="${not empty keyword}">Search</c:when>
-                                        <c:otherwise>All</c:otherwise>
-                                    </c:choose>
-                                </h5>
-                                <p class="card-text text-muted">Current View</p>
+                        <div class="col-md-4">
+                            <div class="card feature-card border-0 bg-transparent">
+                                <div class="card-body">
+                                    <i class="fas fa-filter fa-2x text-warning mb-2"></i>
+                                    <h5 class="card-title">
+                                        <c:choose>
+                                            <c:when test="${not empty selectedCategory}">Filtered</c:when>
+                                            <c:when test="${not empty keyword}">Search</c:when>
+                                            <c:otherwise>All</c:otherwise>
+                                        </c:choose>
+                                    </h5>
+                                    <p class="card-text text-muted">Current View</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</c:if>
-
+        </section>
+    </c:if>
+</div>
 <!-- Footer -->
 <footer class="bg-dark text-light py-4" style="margin-top: 45px;">
     <div class="container">
