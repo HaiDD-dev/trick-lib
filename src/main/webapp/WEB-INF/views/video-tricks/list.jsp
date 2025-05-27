@@ -10,6 +10,132 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/tricklib-style.css" rel="stylesheet">
+    <style>
+        /* Video Hover Effects */
+        .video-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        .video-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .video-container:hover .video-preview {
+            opacity: 0;
+        }
+
+        .video-container:hover .video-iframe {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .video-container:hover .play-overlay {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            z-index: 3;
+        }
+
+        .video-title {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 8px;
+            color: #212529;
+        }
+
+        .video-description {
+            font-size: 0.875rem;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .category-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .hover-info {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+
+        .video-container:hover .hover-info {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation -->
@@ -144,6 +270,7 @@
             </div>
         </div>
     </section>
+
     <!-- Video Grid -->
     <section class="py-5">
         <div class="container">
@@ -184,32 +311,52 @@
                         <c:forEach var="videoTrick" items="${videoTricks}">
                             <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div class="card video-card h-100">
-                                    <div class="thumbnail-container">
+                                    <div class="video-container">
+                                        <!-- Thumbnail/Preview Image -->
                                         <c:choose>
                                             <c:when test="${not empty videoTrick.thumbnailUrl}">
                                                 <img src="${videoTrick.thumbnailUrl}" alt="${videoTrick.title}"
-                                                     class="thumbnail-img"
+                                                     class="video-preview"
                                                      onerror="this.src='https://via.placeholder.com/320x180/6c757d/ffffff?text=No+Image'">
                                             </c:when>
                                             <c:otherwise>
                                                 <img src="https://via.placeholder.com/320x180/6c757d/ffffff?text=Video+Trick"
-                                                     alt="${videoTrick.title}" class="thumbnail-img">
+                                                     alt="${videoTrick.title}" class="video-preview">
                                             </c:otherwise>
                                         </c:choose>
+
+                                        <!-- Video Iframe for Hover -->
+                                        <iframe class="video-iframe"
+                                                src="${fn:replace(videoTrick.url, 'watch?v=', 'embed/')}?autoplay=1&mute=1&controls=0&loop=1"
+                                                allow="autoplay; encrypted-media"
+                                                allowfullscreen>
+                                        </iframe>
+
+                                        <!-- Play Overlay -->
+                                        <div class="play-overlay">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+
+                                        <!-- Hover Info -->
+                                        <div class="hover-info">
+                                            <i class="fas fa-mouse-pointer me-1"></i>Hover to preview
+                                        </div>
+
+                                        <!-- Duration Badge -->
                                         <c:if test="${not empty videoTrick.duration}">
                                             <span class="duration-badge">${videoTrick.duration}</span>
                                         </c:if>
                                     </div>
 
                                     <div class="card-body d-flex flex-column">
-                                        <h6 class="card-title fw-bold" title="${videoTrick.title}">
+                                        <h6 class="video-title" title="${videoTrick.title}">
                                                 ${fn:length(videoTrick.title) > 50 ?
                                                         fn:substring(videoTrick.title, 0, 47).concat('...') :
                                                         videoTrick.title}
                                         </h6>
 
                                         <c:if test="${not empty videoTrick.description}">
-                                            <p class="card-text text-muted small mb-3">
+                                            <p class="video-description mb-3">
                                                     ${fn:length(videoTrick.description) > 80 ?
                                                             fn:substring(videoTrick.description, 0, 77).concat('...') :
                                                             videoTrick.description}
@@ -225,13 +372,13 @@
                                                         ${videoTrick.difficultyLevel}
                                                 </span>
                                                 </c:if>
-                                                <small class="text-muted">
-                                                    <c:forEach var="category" items="${categories}">
-                                                        <c:if test="${category.id == videoTrick.categoryId}">
+                                                <c:forEach var="category" items="${categories}">
+                                                    <c:if test="${category.id == videoTrick.categoryId}">
+                                                        <span class="category-tag">
                                                             <i class="fas fa-tag me-1"></i>${category.name}
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </small>
+                                                        </span>
+                                                    </c:if>
+                                                </c:forEach>
                                             </div>
 
                                             <div class="d-grid gap-2">
@@ -265,6 +412,7 @@
             </c:choose>
         </div>
     </section>
+
     <!-- Stats Section -->
     <c:if test="${not empty videoTricks}">
         <section class="stats-section">
@@ -315,6 +463,7 @@
         </section>
     </c:if>
 </div>
+
 <!-- Footer -->
 <footer class="bg-dark text-light py-4" style="margin-top: 45px;">
     <div class="container">
@@ -378,6 +527,32 @@
             bsAlert.close();
         });
     }, 5000);
+
+    // Optimize video loading on hover
+    document.addEventListener('DOMContentLoaded', function () {
+        const videoContainers = document.querySelectorAll('.video-container');
+
+        videoContainers.forEach(container => {
+            const iframe = container.querySelector('.video-iframe');
+            let hoverTimeout;
+
+            container.addEventListener('mouseenter', function () {
+                hoverTimeout = setTimeout(() => {
+                    // Load video with slight delay to avoid unnecessary loading
+                    if (!iframe.src.includes('autoplay=1')) {
+                        const currentSrc = iframe.src;
+                        iframe.src = currentSrc;
+                    }
+                }, 200);
+            });
+
+            container.addEventListener('mouseleave', function () {
+                clearTimeout(hoverTimeout);
+                // Optional: pause video when mouse leaves
+                // iframe.src = iframe.src.replace('autoplay=1', 'autoplay=0');
+            });
+        });
+    });
 </script>
 </body>
 </html>
