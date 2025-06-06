@@ -20,8 +20,8 @@ public class AuthenticationFilter implements Filter {
 
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
-        // Allow access to login, static resources (css, js, etc.), and the logout page
-        if (path.startsWith("/login") || path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/") || path.equals("/logout")) {
+        // Allow access to login, register, static resources (css, js, etc.), and the logout page
+        if (path.startsWith("/login") || path.startsWith("/register") || path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/") || path.equals("/logout")) {
             chain.doFilter(request, response);
             return;
         }
