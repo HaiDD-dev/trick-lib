@@ -65,7 +65,7 @@ public class VideoTrickDAO {
     }
 
     public boolean addVideoTrick(VideoTrick videoTrick) {
-        String sql = "INSERT INTO video_tricks (title, description, url, category_id, thumbnail_url, duration, difficulty_level) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO video_tricks (title, description, url, category_id, thumbnail_url, duration, difficulty_level, user_id) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -76,6 +76,7 @@ public class VideoTrickDAO {
             stmt.setString(5, videoTrick.getThumbnailUrl());
             stmt.setString(6, videoTrick.getDuration());
             stmt.setString(7, videoTrick.getDifficultyLevel());
+            stmt.setInt(8, videoTrick.getUserId()); // <-- THÊM user_id
 
             int result = stmt.executeUpdate();
             return result > 0;
@@ -148,6 +149,7 @@ public class VideoTrickDAO {
         return videoTricks;
     }
 
+    // Helper method được cập nhật để lấy cả user_id
     private VideoTrick mapResultSetToVideoTrick(ResultSet rs) throws SQLException {
         VideoTrick videoTrick = new VideoTrick();
         videoTrick.setId(rs.getInt("id"));
@@ -161,6 +163,7 @@ public class VideoTrickDAO {
         videoTrick.setDifficultyLevel(rs.getString("difficulty_level"));
         videoTrick.setCreatedAt(rs.getTimestamp("created_at"));
         videoTrick.setUpdatedAt(rs.getTimestamp("updated_at"));
+        videoTrick.setUserId(rs.getInt("user_id")); // <-- CẬP NHẬT QUAN TRỌNG
         return videoTrick;
     }
 }

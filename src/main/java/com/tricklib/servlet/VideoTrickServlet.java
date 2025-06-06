@@ -3,6 +3,7 @@ package com.tricklib.servlet;
 import com.tricklib.dao.CategoryDAO;
 import com.tricklib.dao.VideoTrickDAO;
 import com.tricklib.model.Category;
+import com.tricklib.model.User;
 import com.tricklib.model.VideoTrick;
 
 import jakarta.servlet.ServletException;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -114,11 +116,20 @@ public class VideoTrickServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         VideoTrick videoTrick = videoTrickDAO.getVideoTrickById(id);
-        List<Category> categories = categoryDAO.getAllCategories();
 
-        request.setAttribute("videoTrick", videoTrick);
-        request.setAttribute("categories", categories);
-        request.getRequestDispatcher("/WEB-INF/views/video-tricks/edit.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        User loggedInUser = (session != null) ? (User) session.getAttribute("user") : null;
+
+        // KIỂM TRA QUYỀN: User phải là admin HOẶC là chủ sở hữu của video
+        if (loggedInUser != null && ("ADMIN".equals(loggedInUser.getRole()) || videoTrick.getUserId() == loggedInUser.getId())) {
+            List<Category> categories = categoryDAO.getAllCategories();
+            request.setAttribute("videoTrick", videoTrick);
+            request.setAttribute("categories", categories);
+            request.getRequestDispatcher("/WEB-INF/views/video-tricks/edit.jsp").forward(request, response);
+        } else {
+            // Nếu không có quyền, báo lỗi
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "You do not have permission to edit this trick.");
+        }
     }
 
     private void viewVideoTrick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -137,6 +148,14 @@ public class VideoTrickServlet extends HttpServlet {
         String thumbnailUrl = request.getParameter("thumbnailUrl");
         String duration = request.getParameter("duration");
         String difficultyLevel = request.getParameter("difficultyLevel");
+
+        HttpSession session = request.getSession(false);
+        User loggedInUser = (session != null) ? (User) session.getAttribute("user") : null;
+
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
         if (title == null || title.trim().isEmpty() || url == null || url.trim().isEmpty() || categoryIdStr == null || categoryIdStr.trim().isEmpty()) {
 
@@ -158,6 +177,7 @@ public class VideoTrickServlet extends HttpServlet {
             videoTrick.setThumbnailUrl(thumbnailUrl);
             videoTrick.setDuration(duration);
             videoTrick.setDifficultyLevel(difficultyLevel != null ? difficultyLevel : "Beginner");
+            videoTrick.setUserId(loggedInUser.getId());
 
             boolean success = videoTrickDAO.addVideoTrick(videoTrick);
 
@@ -187,6 +207,15 @@ public class VideoTrickServlet extends HttpServlet {
         String thumbnailUrl = request.getParameter("thumbnailUrl");
         String duration = request.getParameter("duration");
         String difficultyLevel = request.getParameter("difficultyLevel");
+
+        VideoTrick existingTrick = videoTrickDAO.getVideoTrickById(id);
+        HttpSession session = request.getSession(false);
+        User loggedInUser = (session != null) ? (User) session.getAttribute("user") : null;
+
+        if (loggedInUser == null || (!"ADMIN".equals(loggedInUser.getRole()) && existingTrick.getUserId() != loggedInUser.getId())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "You do not have permission to update this trick.");
+            return;
+        }
 
         if (title == null || title.trim().isEmpty() || url == null || url.trim().isEmpty() || categoryIdStr == null || categoryIdStr.trim().isEmpty()) {
 
@@ -236,15 +265,17 @@ public class VideoTrickServlet extends HttpServlet {
 
     private void deleteVideoTrick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        boolean success = videoTrickDAO.deleteVideoTrick(id);
 
-        if (success) {
-            request.setAttribute("message", "Video trick deleted successfully");
+        VideoTrick videoTrick = videoTrickDAO.getVideoTrickById(id);
+        HttpSession session = request.getSession(false);
+        User loggedInUser = (session != null) ? (User) session.getAttribute("user") : null;
+
+        if (loggedInUser != null && ("ADMIN".equals(loggedInUser.getRole()) || videoTrick.getUserId() == loggedInUser.getId())) {
+            videoTrickDAO.deleteVideoTrick(id);
+            response.sendRedirect(request.getContextPath() + "/video-tricks?success=delete");
         } else {
-            request.setAttribute("error", "An error occurred while deleting the video trick");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "You do not have permission to delete this trick.");
         }
-
-        response.sendRedirect(request.getContextPath() + "/video-tricks");
     }
 
     private void searchVideoTricks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

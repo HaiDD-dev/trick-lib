@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -368,15 +368,17 @@
                                                        class="btn btn-primary btn-sm" title="Watch Video">
                                                         <i class="fas fa-play"></i> Watch
                                                     </a>
-                                                    <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
-                                                       class="btn btn-outline-warning btn-sm" title="Edit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm"
-                                                            title="Delete"
-                                                            onclick="confirmDelete(${videoTrick.id}, '${videoTrick.title}')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.id == videoTrick.userId}">
+                                                        <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
+                                                           class="btn btn-outline-warning btn-sm" title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                                                title="Delete"
+                                                                onclick="confirmDelete(${videoTrick.id}, '${videoTrick.title}')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>

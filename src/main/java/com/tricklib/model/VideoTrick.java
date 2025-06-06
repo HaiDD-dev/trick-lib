@@ -14,6 +14,7 @@ public class VideoTrick {
     private String difficultyLevel;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private int userId;
 
     public VideoTrick() {
     }
@@ -122,15 +123,16 @@ public class VideoTrick {
         this.updatedAt = updatedAt;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "VideoTrick{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
-                ", categoryId=" + categoryId +
-                ", difficultyLevel='" + difficultyLevel + '\'' +
-                '}';
+        return "VideoTrick{" + "id=" + id + ", title='" + title + '\'' + ", description='" + description + '\'' + ", url='" + url + '\'' + ", categoryId=" + categoryId + ", difficultyLevel='" + difficultyLevel + '\'' + '}';
     }
 }
