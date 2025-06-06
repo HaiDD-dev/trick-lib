@@ -11,30 +11,7 @@
     <link href="${pageContext.request.contextPath}/css/tricklib-style.css" rel="stylesheet">
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">
-            <i class="fas fa-magic"></i> TrickLib
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/video-tricks">Video Tricks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/categories">Categories</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <!-- Hero Section -->
 <section class="hero-section">
