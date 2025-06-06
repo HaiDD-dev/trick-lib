@@ -28,4 +28,8 @@ public class PasswordUtil {
         String hashedPlainPassword = hashPassword(plainPassword);
         return hashedPlainPassword.equals(hashedPassword);
     }
+
+    public static void main(String[] args) {
+        System.out.println(hashPassword("admin"));
+    }
 }
