@@ -10,6 +10,13 @@
     <name>TrickLib Web Application</name>
     <url>https://maven.apache.org</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <junit.version>5.8.2</junit.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -58,28 +65,25 @@
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
         </dependency>
-
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub HaiDD-dev Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/HaiDD-dev/trick-lib</url>
-        </repository>
-    </distributionManagement>
-
     <build>
-        <finalName>tricklib</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
             </plugin>
         </plugins>
     </build>
+
 </project>
