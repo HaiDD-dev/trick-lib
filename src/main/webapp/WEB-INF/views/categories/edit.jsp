@@ -216,23 +216,6 @@
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="bg-dark text-light py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5><i class="fas fa-magic"></i> TrickLib</h5>
-                <p class="mb-0">A professional trick video library</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">&copy; 2025 TrickLib. All rights reserved.</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const originalValues = {
         name: '${category.name}',
@@ -314,5 +297,5 @@
     document.getElementById('name').addEventListener('input', highlightChanges);
     document.getElementById('description').addEventListener('input', highlightChanges);
 </script>
-</body>
-</html>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

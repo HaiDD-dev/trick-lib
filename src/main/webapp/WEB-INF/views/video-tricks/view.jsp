@@ -19,7 +19,7 @@
     <section class="page-header" style="margin-bottom: 45px;">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <nav aria-label="breadcrumb" class="mb-3">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -48,22 +48,6 @@
                         ${not empty videoTrick.difficultyLevel ? videoTrick.difficultyLevel : 'Beginner'}
                     </span>
                     </p>
-                </div>
-                <div class="col-lg-4 text-end">
-                    <div class="btn-group" role="group">
-                        <a href="${videoTrick.url}" target="_blank"
-                           class="btn btn-light btn-lg action-btn">
-                            <i class="fas fa-play me-2"></i>Watch Video
-                        </a>
-                        <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
-                           class="btn btn-outline-light">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <button type="button" class="btn btn-outline-light"
-                                onclick="confirmDelete()">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -211,10 +195,17 @@
                     </div>
                     <div class="card-body">
                         <div class="d-grid gap-2">
-                            <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
-                               class="btn btn-warning">
-                                <i class="fas fa-edit me-2"></i>Edit
-                            </a>
+                            <c:if test="${not empty sessionScope.user && (sessionScope.user.role == 'ADMIN' || videoTrick.userId == sessionScope.user.id)}">
+                                <a href="${pageContext.request.contextPath}/video-tricks?action=edit&id=${videoTrick.id}"
+                                   class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Edit Trick
+                                </a>
+                                <a href="${pageContext.request.contextPath}/video-tricks?action=delete&id=${videoTrick.id}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Are you sure you want to delete this trick?');">
+                                    <i class="fas fa-trash"></i> Delete Trick
+                                </a>
+                            </c:if>
                             <a href="${pageContext.request.contextPath}/video-tricks?action=add"
                                class="btn btn-success">
                                 <i class="fas fa-plus me-2"></i>Add New Video
@@ -235,21 +226,6 @@
         </div>
     </div>
 </div>
-
-<!-- Footer -->
-<footer class="bg-dark text-light py-4 mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5><i class="fas fa-magic"></i> TrickLib</h5>
-                <p class="mb-0">A professional trick video library</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">&copy; 2025 TrickLib. All rights reserved.</p>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
@@ -296,7 +272,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Delete confirmation
     function confirmDelete() {
@@ -362,5 +337,4 @@
         }
     });
 </script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
