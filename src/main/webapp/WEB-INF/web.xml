@@ -9,7 +9,7 @@
     <description>A web application to manage and organize tricks</description>
 
     <welcome-file-list>
-        <welcome-file>video-tricks</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <error-page>
